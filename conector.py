@@ -33,7 +33,9 @@ def main():
     try:
         service = build('drive', 'v3', credentials=creds)
         # Call the Drive v3 API        
-        results = service.files().list(pageSize=1,fields="*").execute()
+        results = service.files().list(
+            #pageSize=1,
+            fields="*").execute()
         items = results.get('files', [])
         if not items:
             print('No files found.')
