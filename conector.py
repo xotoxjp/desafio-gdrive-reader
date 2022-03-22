@@ -25,8 +25,7 @@ def main():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
@@ -36,8 +35,9 @@ def main():
         service = build('drive', 'v3', credentials=creds)
 
         # Call the Drive v3 API
+        """
         results = service.files().list(
-            pageSize=5, fields="nextPageToken, files(id, name, fullFileExtension)").execute()
+            pageSize=5, fields="nextPageToken, files(id, name)").execute()
         items = results.get('files', [])
 
         if not items:
@@ -45,8 +45,33 @@ def main():
             return
         print('Files:')
         for item in items:
-            #nombre del archivo, la extensión, el owner del archivo, la visibilidad (público o privado) y la fecha de última modificación.
-            print(u'{0} ({1}) {2}'.format(item['name'], item['id'], item['fullFileExtension']))
+            #nombre del archivo, la extensión, el owner del archivo, la visibilidad (público o privado) y la fecha de última modificación.   
+            print(u'{0} ({1})'.format(item['name'], item['id']))
+        """
+
+
+        """
+        files = service.files().list().execute().get('files', [])
+        for f in files:
+             #nombre del archivo, la extensión, el owner del archivo, la visibilidad (público o privado) y la fecha de última modificación.
+            print("Nombre del Archivo: ",f['name']," Tipo de Archivo: " , f['mimeType'])
+            # output: {'kind': 'drive#file', 'id': '1k7OJW_gDyiYNJRZk8bZr1-74cOxEI4Jm', 'name': 'Teoria.rar', 'mimeType': 'application/rar'}
+        """
+
+        
+        results = service.files().list(pageSize=1, fields="*").execute()
+        items = results.get('files', [])
+
+        if not items:
+            print('No files found.')
+            return
+        print('Files:')
+        for item in items:
+            #nombre del archivo, la extensión, el owner del archivo, la visibilidad (público o privado) y la fecha de última modificación.   
+                #print(u'{0} ({1})'.format(item['name'], item['id']))
+            #print(item)
+            print("Nombre del Archivo: ",item['name']," | Tipo de Archivo: " , item['mimeType'], " | Owner: ",item['owners'][0]['displayName']," | Ultima Modificacion: ", item['modifiedTime'])
+
     except HttpError as error:
         # TODO(developer) - Handle errors from drive API.
         print(f'An error occurred: {error}')
