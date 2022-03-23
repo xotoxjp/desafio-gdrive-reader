@@ -17,22 +17,22 @@ Esta aplicación debe ser desarrollada en Python y deberá contar con tests que 
 
 ## Objetivos de Desarrollo
 - Conexion google drive API
-  - Acceso a unidad gdrive
-  - Lectura de contenido gdrive
+  - [x] Acceso a unidad gdrive
+  - [X] Lectura de contenido gdrive
 
 - Conexion base de datos
-  - Acceso a DB
-  - Si no existe Tabla crear una
+  - [X] Acceso a DB
+  - [ ] Si no existe Tabla crear una
 
 - Discriminar archivos publicos o privados
-  - si archivo es publico pasar cambiar visibility a privado
-  - guardar registro de archivo con cambio de visibility en DB
-  - enviar e-mail a owner notificando cambio
+  - [ ] si archivo es publico pasar cambiar visibility a privado
+  - [ ] guardar registro de archivo con cambio de visibility en DB
+  - [ ] enviar e-mail a owner notificando cambio
 
 - Guardar registros obtenidos de gdrive
-  - si no existe hacer insert de lo obtenido
-  - si existe y fecha de modificacion es diferente hacer UPDATE a la version mas reciente
-  - sino ignorar el registro
+  - [X] si no existe hacer insert de lo obtenido
+  - [ ] si existe y fecha de modificacion es diferente hacer UPDATE a la version mas reciente
+  - [ ] sino ignorar el registro
 
 ## Desarrollo del desafío
 ### Aplicar buenas prácticas de programación
